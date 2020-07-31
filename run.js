@@ -14,25 +14,27 @@ http.createServer(function(req, res) {
             body += chunk.toString();
         });
         req.on('end', () => {
-            let response ={}
 
-            //Hive object from request payload
-            let hive = JSON.parse(body)
-
+            let request = JSON.parse(body)
+            let response ={"orders":[]}
             //Loop through ants and give orders
-            for (let antId in hive.ants) {
+            for (let i in request.ants) {
               let random_act = Math.floor(Math.random() * 4);
-              let random_dir = Math.floor(Math.random() * 4);
-                response[antId] = {
-                  "act":actions[random_act],
-                  "dir":directions[random_dir]
+              let random_dir = Math.floor(Math.random() * 3);
+              let order = {
+                  "antId": request.ants[i].id,
+                  "act": actions[random_act],
+                  "dir": directions[random_dir]
                 }
+              response.orders.push(order)
             }
-
-            // json format sample:
-            // {"1":{"act":"load","dir":"down"},"17":{"act":"load","dir":"up"}}
             res.end(JSON.stringify(response));
-            console.log("Tick:", hive.tick, response)
+
+            console.log(JSON.stringify(response))
+            // {"orders": [
+            //	 {"id":1,"act":"move","dir":"down"},
+            //	 {"id":17,"act":"load","dir":"up"}
+            //	]}
         });
     } else {
         res.end("only POST allowed");

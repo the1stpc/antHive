@@ -1,34 +1,52 @@
 {
   "tick": 1,
-  "id": "spanID",
-  "ants": {
-    "1": {
-      "wasted": 0,
-      "age": 14,
-      "health": 7,
-      "payload": 3,
-      "x": 0,
-      "y": 0,
-      "event": "birth"
+  "id": "spawnID",
+  "ants": [
+    {
+      "id": 3,
+      "event": "good",
+      "errors": 5,
+      "age": 23,
+      "health": 9,
+      "payload": 7,
+      "point":{
+        "x": 0,
+        "y": 0
+      }
     },
-    "17": {
-      "wasted": 4,
-      "age": 1,
-      "health": 1,
-      "payload": 0,
-      "x": 1,
-      "y": 1,
-      "event": "good"
+    {
+      "id": 1,
+      "event": "good",
+      "errors": 5,
+      "age": 100,
+      "health": 9,
+      "payload": 9,
+      "point": {
+        "x": 3,
+        "y": 4
+      }
+    },
+    {
+      "id": 2,
+      "event": "good",
+      "errors": 15,
+      "age": 73,
+      "health": 9,
+      "payload": 3,
+      "point": {
+        "x": 2,
+        "y": 4
+      }
     }
-  },
-  "map": {
+  ],
+  "canvas": {
     "width": 3,
     "height": 3,
     "cells": [
       [
         {
-          "ant": "spanID",
-          "hive": "spanID"
+          "ant": "spawnID",
+          "hive": "spawnID"
         },
         {},
         {}
@@ -38,7 +56,7 @@
           "food": 5
         },
         {
-          "ant": "spanID"
+          "ant": "spawnID"
         },
         {}
       ],
