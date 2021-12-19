@@ -3,22 +3,11 @@
   "id": "spawnID",
   "ants": [
     {
-      "id": 3,
-      "event": "good",
-      "errors": 5,
-      "age": 23,
-      "health": 9,
-      "payload": 7,
-      "point":{
-        "x": 0,
-        "y": 0
-      }
-    },
-    {
       "id": 1,
       "event": "good",
       "errors": 5,
       "age": 100,
+      "cargo": 0,
       "health": 9,
       "payload": 9,
       "point": {
@@ -31,11 +20,25 @@
       "event": "good",
       "errors": 15,
       "age": 73,
+      "cargo": 0,
       "health": 9,
       "payload": 3,
       "point": {
         "x": 2,
         "y": 4
+      }
+    },
+    {
+      "id": 3,
+      "event": "good",
+      "errors": 5,
+      "age": 23,
+      "cargo": 0,
+      "health": 9,
+      "payload": 7,
+      "point":{
+        "x": 0,
+        "y": 0
       }
     }
   ],

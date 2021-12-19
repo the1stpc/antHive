@@ -1,11 +1,67 @@
 import * as http from "http";
 
-const actions = ["stay","move","eat","load","unload"]
-const directions = ["up","down","right","left"]
+enum EDirections {
+    Up = "up",
+    Down = "down",
+    Right = "right",
+    Left = "left"
+}
 
-console.log(1)
+enum EActions {
+    Tay = "stay",
+    Move = "move",
+    Eat = "eat",
+    Load = "load",
+    Unload = "unload"
+}
 
-http.createServer(function(req, res) {
+interface ICoordinates {
+    x: number;
+    y: number;
+}
+
+interface IAnt {
+    id: number;
+    event: string;
+    errors: number;
+    age: number;
+    cargo: number;
+    health: number;
+    payload: number;
+    point: ICoordinates;
+}
+
+interface ICanvas {
+    width: number;
+    height: number;
+    cells: ICell[];
+}
+
+interface ICell {
+    ant?: string;
+    hive?: string;
+    food?: number;
+}
+
+interface IResponse {
+    tick: number;
+    id: string;
+    ants: IAnt[],
+    canvas: ICanvas
+}
+
+interface IOrder {
+    antId: number,
+    act: EActions,
+    dir: EDirections
+}
+
+interface IRequest {
+    orders: IOrder[]
+}
+
+
+http.createServer(function (req, res) {
     res.writeHead(200, {
         'Content-Type': 'application/json'
     });
@@ -16,23 +72,20 @@ http.createServer(function(req, res) {
         });
         req.on('end', () => {
 
-            let request = JSON.parse(body)
-            // @ts-ignore
-            let response ={"orders":[]}
+            let response: IResponse = JSON.parse(body)
+            let request: IRequest = {orders: []}
             //Loop through ants and give orders
-            for (let i in request.ants) {
-                let random_act = Math.floor(Math.random() * 4);
-                let random_dir = Math.floor(Math.random() * 3);
-                let order = {
-                    "antId": request.ants[i].id,
-                    "act": actions[random_act],
-                    "dir": directions[random_dir]
+            for (let i in response.ants) {
+                let order: IOrder = {
+                    antId: response.ants[i].id,
+                    act: EActions.Move,
+                    dir: EDirections.Down
                 }
-                response.orders.push(order)
+                request.orders.push(order)
             }
-            res.end(JSON.stringify(response));
+            res.end(JSON.stringify(request));
 
-            console.log(JSON.stringify(response))
+            console.log(JSON.stringify(request))
             // {"orders": [
             //	 {"id":1,"act":"move","dir":"down"},
             //	 {"id":17,"act":"load","dir":"up"}
